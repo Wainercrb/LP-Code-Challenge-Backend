@@ -31,7 +31,6 @@ export class ListOperationController {
 
       return res.status(200).json(record);
     } catch (err) {
-      console.log(err);
       if (err instanceof ValidationError) {
         return res.status(400).json({ error: err.message });
       }

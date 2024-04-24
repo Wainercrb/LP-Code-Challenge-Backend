@@ -30,15 +30,12 @@ export class ListRecordController {
 
       if (!id) return res.status(401).json({ message: 'No user found, authorization denied' });
 
-      console.log(req.query);
-
       const { page, size, criteria, orderColumn, orderDirection } = payload.parse(req.query);
 
       const record = await this.service.list(id, page, size, criteria, orderColumn, orderDirection);
 
       return res.status(200).json(record);
     } catch (err) {
-      console.log(err);
       if (err instanceof ValidationError) {
         return res.status(400).json({ error: err.message });
       }

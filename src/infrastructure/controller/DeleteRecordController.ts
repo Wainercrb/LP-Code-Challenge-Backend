@@ -17,7 +17,6 @@ export class DeleteRecordController {
 
   async handle(req: MiddlewareRequest, res: Response) {
     try {
-      console.log(req.params);
       const { record_id } = payload.parse(req.query);
 
       const foundRecord = await this.findRecordService.find(record_id);

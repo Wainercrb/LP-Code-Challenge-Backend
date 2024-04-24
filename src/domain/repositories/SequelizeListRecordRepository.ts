@@ -38,9 +38,7 @@ export class SequelizeListRecordRepository implements ListRecordRepository {
     };
 
     const selectedOrderColumn = RECORD_COLUMN_ORDER_MAPPING[orderColumn || ''];
-    console.log(selectedOrderColumn, orderDirection, orderColumn);
     if (selectedOrderColumn && orderDirection) {
-      console.log('ordeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
       order = [[sequelize.col(selectedOrderColumn), orderDirection]];
     }
 
