@@ -1,9 +1,21 @@
 {
-  "name": "LP-Code-Challenge-Backend",
+  "name": "load-pro-backend-code-challenge",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "test": "jest",
+    "test:coverage": "jest --coverage",
+    "test:coverage-simple": "jest --coverage --coverageReporters='json-summary'",
+    "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts",
+    "start": "ts-node -r tsconfig-paths/register src/index.ts",
+    "build": "tsc && tsc-alias",
+    "seed": "npm run build && npx sequelize-cli db:seed:all",
+    "prestart": "npm run build && npm run db:reset",
+    "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
+    "lint": "eslint src/**/*.ts",
+    "format": "eslint src/**/*.ts --fix",
+    "pretty": "prettier --write \"src/**/*.ts\""
   },
   "author": "Wainer RB",
   "license": "ISC",

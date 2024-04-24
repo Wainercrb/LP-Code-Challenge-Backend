@@ -1,0 +1,80 @@
+import { DataTypes, Model } from 'sequelize';
+import { sequelize } from '@infrastructure/database/sequelize';
+import { SequelizeUser } from './User';
+import { SequelizeOperation } from './Operation';
+
+export interface BaseRecord {
+  id: number;
+  amount: number;
+  operation_response: string;
+  date: Date;
+}
+
+export interface RecordInputRow extends BaseRecord {
+  operation_id: number;
+  user_id: number;
+}
+
+export interface RecordOutputRow extends BaseRecord {
+  user: SequelizeUser;
+  operation: SequelizeOperation;
+}
+
+interface RecordRow extends RecordInputRow, RecordOutputRow {}
+
+class SequelizeRecord extends Model<Omit<RecordRow, 'operation' | 'user'>, Omit<RecordRow, 'id'>> {
+  declare id: number;
+  declare user_id: number;
+  declare operation_id: number;
+  declare amount: number;
+  declare operation_response: string;
+  declare date: Date;
+  declare SequelizeUser: SequelizeUser;
+  declare SequelizeOperation: SequelizeOperation;
+}
+
+SequelizeRecord.init(
+  {
+    id: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      autoIncrement: true,
+    },
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'users',
+        key: 'id',
+      },
+    },
+    operation_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'operations',
+        key: 'id',
+      },
+    },
+    amount: {
+      type: DataTypes.DOUBLE,
+      allowNull: false,
+    },
+    operation_response: {
+      type: DataTypes.JSON,
+      allowNull: false,
+    },
+    date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+  },
+  {
+    sequelize,
+    timestamps: false,
+    tableName: 'records',
+  },
+);
+
+SequelizeRecord.belongsTo(SequelizeUser, { foreignKey: 'user_id', as: 'recordUsers' });
+SequelizeRecord.belongsTo(SequelizeOperation, { foreignKey: 'operation_id', as: 'recordOperation' });
+
+export { SequelizeRecord };
