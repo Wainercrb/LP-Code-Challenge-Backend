@@ -9,6 +9,7 @@
     "test:coverage-simple": "jest --coverage --coverageReporters='json-summary'",
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts",
     "start": "ts-node -r tsconfig-paths/register src/index.ts",
+    "start:dist": "node dist/index.js",
     "build": "tsc && tsc-alias",
     "seed": "npm run build && npx sequelize-cli db:seed:all",
     "prestart": "npm run build && npm run db:reset",
