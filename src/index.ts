@@ -10,9 +10,8 @@ import { SignOutUserControllerFactory } from '@application/factories/SignOutUser
 import { VerifyUserControllerFactory } from '@application/factories/VerifyUserControllerFactory';
 import { DeleteRecordControllerFactory } from '@application/factories/DeleteRecordControllerFactory';
 import { auth } from '@infrastructure/middleware/auth.middleware';
-import { isAdmin, isGuess } from '@infrastructure/middleware/role.middleware';
+import { isAdmin } from '@infrastructure/middleware/role.middleware';
 import { ProfileUserControllerFactory } from '@application/factories/ProfileUserControllerFactory';
-// import ExpressRoutesAdapter from '@app/infrastructure/adapters/expressjs/express-routes.adapter';
 
 const PORT = 3000;
 const CORS_SETUP = {
