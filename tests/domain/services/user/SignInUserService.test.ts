@@ -1,4 +1,4 @@
-import { SignInUserRepository, SignInUserService } from "../../../../src/domain/services/user/SignInUserService";
+import { SignInUserRepository, SignInUserService } from '../../../../src/domain/services/user/SignInUserService';
 
 describe('SignInUserService', () => {
   let signInUserService: SignInUserService;
