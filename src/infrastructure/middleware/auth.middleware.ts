@@ -20,12 +20,12 @@ export const auth = async (req: MiddlewareRequest, res: Response, next: NextFunc
 
     if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
 
-    const decoded = await jwtVerify(token, SECRET)
+    const decoded = await jwtVerify(token, SECRET);
 
     if (!decoded) return res.status(401).json({ message: 'Token is not valid' });
-    
+
     req.user = decoded;
-    
+
     next();
   } catch (error) {
     return res.status(500).json({ message: (error as Error).message });
