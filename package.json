@@ -16,7 +16,9 @@
     "db:reset": "npx sequelize-cli db:drop && npx sequelize-cli db:create && npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all",
     "lint": "eslint src/**/*.ts",
     "format": "eslint src/**/*.ts --fix",
-    "pretty": "prettier --write \"src/**/*.ts\""
+    "pretty": "prettier --write \"src/**/*.ts\"",
+    "format:test": "eslint tests/**/*.ts --fix",
+    "pretty:test": "prettier --write \"tests/**/*.ts\""
   },
   "author": "Wainer RB",
   "license": "ISC",
