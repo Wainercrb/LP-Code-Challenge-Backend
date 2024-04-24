@@ -1,17 +1,17 @@
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import { CreateUserControllerFactory } from '@application/factories/CreateUserControllerFactory';
-import { CreateRecordControllerFactory } from '@application/factories/CreateRecordControllerFactory';
-import { ListRecordControllerFactory } from '@application/factories/ListRecordControllerFactory';
-import { ListOperationControllerFactory } from '@application/factories/ListOperationControllerFactory';
-import { SignInUserControllerFactory } from '@application/factories/SignInUserControllerFactory';
-import { SignOutUserControllerFactory } from '@application/factories/SignOutUserControllerFactory';
-import { VerifyUserControllerFactory } from '@application/factories/VerifyUserControllerFactory';
-import { DeleteRecordControllerFactory } from '@application/factories/DeleteRecordControllerFactory';
+import { CreateUserControllerFactory } from '@application/factories/user/CreateUserControllerFactory';
+import { SignOutUserControllerFactory } from '@application/factories/user/SignOutUserControllerFactory';
+import { ProfileUserControllerFactory } from '@application/factories/user/ProfileUserControllerFactory';
+import { SignInUserControllerFactory } from '@application/factories/user/SignInUserControllerFactory';
+import { VerifyUserControllerFactory } from '@application/factories/user/VerifyUserControllerFactory';
+import { CreateRecordControllerFactory } from '@application/factories/record/CreateRecordControllerFactory';
+import { ListRecordControllerFactory } from '@application/factories/record/ListRecordControllerFactory';
+import { DeleteRecordControllerFactory } from '@application/factories/record/DeleteRecordControllerFactory';
+import { ListOperationControllerFactory } from '@application/factories/operation/ListOperationControllerFactory';
 import { auth } from '@infrastructure/middleware/auth.middleware';
 import { isAdmin } from '@infrastructure/middleware/role.middleware';
-import { ProfileUserControllerFactory } from '@application/factories/ProfileUserControllerFactory';
 
 const PORT = 3000;
 const CORS_SETUP = {
