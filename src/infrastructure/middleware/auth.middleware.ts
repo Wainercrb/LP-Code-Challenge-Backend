@@ -3,9 +3,9 @@ import { Request, Response, NextFunction } from 'express';
 import { SECRET } from './config';
 
 export interface AuthUser {
-    username: string
-    role: string
-    id: number
+  username: string;
+  role: string;
+  id: number;
 }
 
 export interface MiddlewareRequest extends Request {
@@ -24,9 +24,9 @@ export const auth = (req: MiddlewareRequest, res: Response, next: NextFunction) 
       if (error) {
         return res.status(401).json({ message: 'Token is not valid' });
       }
-      
+
       req.user = user as AuthUser;
-      
+
       next();
     });
   } catch (error) {

@@ -6,7 +6,7 @@ import { DeleteRecordService } from '@domain/services/DeleteRecordService';
 import { FindRecordService } from '@domain/services/FindRecordService';
 
 const payload = z.object({
-  record_id: z.string().transform(v => Number(v)),
+  record_id: z.string().transform((v) => Number(v)),
 });
 
 export class DeleteRecordController {
@@ -17,7 +17,7 @@ export class DeleteRecordController {
 
   async handle(req: MiddlewareRequest, res: Response) {
     try {
-      console.log(req.params)
+      console.log(req.params);
       const { record_id } = payload.parse(req.query);
 
       const foundRecord = await this.findRecordService.find(record_id);

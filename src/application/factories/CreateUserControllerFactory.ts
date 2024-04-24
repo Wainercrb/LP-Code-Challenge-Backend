@@ -1,8 +1,8 @@
-import { SequelizeSignInUserRepository } from "@domain/repositories/SequelizeSignInUserRepository";
-import { SequelizeCreateUserRepository } from "@domain/repositories/SequelizeCreateUserRepository";
-import { CreateUserService } from "@domain/services/CreateUserService";
-import { SignInUserService } from "@domain/services/SignInUserService";
-import { CreateUserController } from "@infrastructure/controller/CreateUserController";
+import { SequelizeSignInUserRepository } from '@domain/repositories/SequelizeSignInUserRepository';
+import { SequelizeCreateUserRepository } from '@domain/repositories/SequelizeCreateUserRepository';
+import { CreateUserService } from '@domain/services/CreateUserService';
+import { SignInUserService } from '@domain/services/SignInUserService';
+import { CreateUserController } from '@infrastructure/controller/CreateUserController';
 
 export class CreateUserControllerFactory {
   static make() {

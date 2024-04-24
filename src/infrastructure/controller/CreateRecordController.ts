@@ -10,10 +10,12 @@ import { MiddlewareRequest } from '@infrastructure/middleware/auth.middleware';
 const payload = z.object({
   operation_id: z.number(),
   id: z.number(),
-  operationPayload: z.object({
-    valueA: z.number(),
-    valueB: z.number()
-  }).optional(),
+  operationPayload: z
+    .object({
+      valueA: z.number(),
+      valueB: z.number(),
+    })
+    .optional(),
 });
 
 export class CreateRecordController {
@@ -40,7 +42,12 @@ export class CreateRecordController {
 
       if (newUserBalance <= 0) return res.status(400).json({ message: 'Your balance is negative' });
 
-      const newRecord = await this.createRecordService.create(foundUser, foundOperation, newUserBalance, operationPayload);
+      const newRecord = await this.createRecordService.create(
+        foundUser,
+        foundOperation,
+        newUserBalance,
+        operationPayload,
+      );
 
       const updatedUser = await this.updateUserService.update(
         foundUser.username,

@@ -49,20 +49,20 @@ SequelizeRecord.init(
       allowNull: false,
       references: {
         model: 'users',
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     operation_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       references: {
         model: 'operations',
-        key: 'id'
-      }
+        key: 'id',
+      },
     },
     isDeleted: {
       type: DataTypes.BOOLEAN,
-      allowNull: false
+      allowNull: false,
     },
   },
   {
@@ -72,7 +72,7 @@ SequelizeRecord.init(
   },
 );
 
-SequelizeRecord.belongsTo(SequelizeUser, { foreignKey: "user_id", as: 'user' })
-SequelizeRecord.belongsTo(SequelizeOperation, { foreignKey: "operation_id", as: 'operation' })
+SequelizeRecord.belongsTo(SequelizeUser, { foreignKey: 'user_id', as: 'user' });
+SequelizeRecord.belongsTo(SequelizeOperation, { foreignKey: 'operation_id', as: 'operation' });
 
 export { SequelizeRecord };

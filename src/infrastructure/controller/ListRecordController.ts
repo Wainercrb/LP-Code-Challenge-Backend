@@ -1,5 +1,5 @@
 import z, { ZodError } from 'zod';
-import {  Response } from 'express';
+import { Response } from 'express';
 import { ValidationError } from '@domain/errors/ValidationError';
 import { ListRecordService } from '@domain/services/ListRecordService';
 import { MiddlewareRequest } from '@infrastructure/middleware/auth.middleware';
@@ -30,7 +30,7 @@ export class ListRecordController {
 
       if (!id) return res.status(401).json({ message: 'No user found, authorization denied' });
 
-      console.log(req.query)
+      console.log(req.query);
 
       const { page, size, criteria, orderColumn, orderDirection } = payload.parse(req.query);
 

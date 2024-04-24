@@ -11,7 +11,7 @@ export interface CreateUserRepository {
 }
 
 export class CreateUserService {
-  constructor(private repository: CreateUserRepository) { }
+  constructor(private repository: CreateUserRepository) {}
 
   async create(username: string, password: string, role: string) {
     const user = this.getUserInstance(username, password, role, DEFAULT_BALANCE);

@@ -5,12 +5,12 @@ export class SequelizeFindUserRepository implements FindUserRepository {
   async find(userId: number): Promise<UserRow | null> {
     const user = await SequelizeUser.findOne({
       where: {
-        id: userId
-      }
+        id: userId,
+      },
     });
 
     if (!user) {
-      return null
+      return null;
     }
 
     return {

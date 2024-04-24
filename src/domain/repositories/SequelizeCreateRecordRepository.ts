@@ -11,7 +11,7 @@ export class SequelizeCreateRecordRepository implements CreateRecordRepository {
       amount: record.getAmount(),
       operation_response: record.getOperationResponse(),
       date: record.getDate(),
-      isDeleted: record.getIsDeleted()
+      isDeleted: record.getIsDeleted(),
     });
 
     return {
@@ -21,7 +21,7 @@ export class SequelizeCreateRecordRepository implements CreateRecordRepository {
       amount: userSaved.amount,
       operation_response: userSaved.operation_response,
       date: userSaved.date,
-      isDeleted: userSaved.isDeleted
+      isDeleted: userSaved.isDeleted,
     };
   }
 }

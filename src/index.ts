@@ -35,7 +35,7 @@ const signInUserController = SignInUserControllerFactory.make();
 const verifyUserController = VerifyUserControllerFactory.make();
 const signOutUserController = SignOutUserControllerFactory.make();
 const profileUserController = ProfileUserControllerFactory.make();
-const deleteRecordController = DeleteRecordControllerFactory.make()
+const deleteRecordController = DeleteRecordControllerFactory.make();
 
 app.post('/sign-up', (req, res) => createUserController.handle(req, res));
 app.post('/sign-in', (req, res) => signInUserController.handle(req, res));

@@ -14,7 +14,6 @@ export const isAdmin = (req: MiddlewareRequest, res: Response, next: NextFunctio
   }
 };
 
-
 export const isGuess = (req: MiddlewareRequest, res: Response, next: NextFunction) => {
   try {
     if (!req.user) return res.status(403).json({ message: 'Require Authenticated  User!' });
@@ -26,4 +25,3 @@ export const isGuess = (req: MiddlewareRequest, res: Response, next: NextFunctio
     return res.status(500).json({ message: (error as Error).message });
   }
 };
-

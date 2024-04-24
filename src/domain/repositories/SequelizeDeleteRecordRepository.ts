@@ -8,21 +8,21 @@ export class SequelizeDeleteRecordRepository implements DeleteRecordRepository {
     };
 
     await SequelizeRecord.update(body, {
-      where: { id: recordId},
+      where: { id: recordId },
     });
 
     const updatedRecord = await SequelizeRecord.findOne({ where: { id: recordId } });
 
-    if (!updatedRecord) return updatedRecord
+    if (!updatedRecord) return updatedRecord;
 
     return {
       amount: updatedRecord.amount,
       date: updatedRecord.date,
       id: updatedRecord.id,
-      isDeleted:updatedRecord.isDeleted,
+      isDeleted: updatedRecord.isDeleted,
       user_id: updatedRecord.user_id,
       operation_id: updatedRecord.operation_id,
-      operation_response: updatedRecord.operation_response
+      operation_response: updatedRecord.operation_response,
     };
   }
 }

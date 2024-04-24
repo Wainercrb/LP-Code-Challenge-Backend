@@ -9,5 +9,5 @@ export const development: Options = {
   password: process.env.DB_PASSWORD,
   port: Number(process.env.DB_PORT),
   database: process.env.DB_NAME,
-  dialect: 'mysql'
-}
+  dialect: 'mysql',
+};

@@ -48,5 +48,4 @@ SequelizeUser.init(
   },
 );
 
-
 export { SequelizeUser };

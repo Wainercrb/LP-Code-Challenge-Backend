@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export type IRequest = {
-    payload: any
-    params: any
-    query: any
-}
+  payload: any;
+  params: any;
+  query: any;
+};
 
 export type IResponse = {
-    status: number
-    payload: any
-}
+  status: number;
+  payload: any;
+};
 
 export interface IController {
-    handle(req: IRequest): Promise<IResponse>
+  handle(req: IRequest): Promise<IResponse>;
 }
