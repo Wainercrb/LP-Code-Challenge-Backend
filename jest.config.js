@@ -7,7 +7,8 @@ module.exports = {
     '^@domain/(.*)$': '<rootDir>/src/domain/$1',
     '^@infrastructure/(.*)$': '<rootDir>/src/infrastructure/$1',
   },
-  testPathIgnorePatterns: [
-    "<rootDir>/src/infrastructure/database" 
+  coveragePathIgnorePatterns: [
+    "<rootDir>/src/domain/entities/" ,
+    "<rootDir>/src/infrastructure/database"
   ]
 };
