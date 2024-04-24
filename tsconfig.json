@@ -1,0 +1,14 @@
+{
+  "extends": "@tsconfig/node20/tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "src",
+    "outDir": "./dist",
+    "paths": { 
+      "@application/*":["application/*"],
+      "@domain/*":["domain/*"],
+      "@infrastructure/*":["infrastructure/*"],
+    }
+  },
+  "include": ["src", "test/application/factories/CreateUserControllerFactory.test.ts"],
+  "exclude": ["node_modules", "dist", "test", "**/*.spec.ts", "**/*.test.ts"]
+}
