@@ -14,17 +14,23 @@ import { auth } from '@infrastructure/middleware/auth.middleware';
 import { isAdmin } from '@infrastructure/middleware/role.middleware';
 
 const PORT = 3000;
+const ALLOW_ORIGIN = [
+  'http://localhost:5173',
+  'https://main--lp-code-challenge.netlify.app',
+  'https://main--lp-code-challenge.app',
+  'https://netlify.app',
+];
 const CORS_SETUP = {
-  origin: ['http://localhost:5173', 'https://main--lp-code-challenge.netlify.app'],
+  origin: ALLOW_ORIGIN,
   credentials: true,
 };
 
 const app = express();
 
+app.use(cors(CORS_SETUP));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(cors(CORS_SETUP));
 
 const createUserController = CreateUserControllerFactory.make();
 const createRecordController = CreateRecordControllerFactory.make();
