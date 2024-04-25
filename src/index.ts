@@ -14,12 +14,12 @@ import { auth } from '@infrastructure/middleware/auth.middleware';
 import { isAdmin } from '@infrastructure/middleware/role.middleware';
 
 const PORT = 3000;
-const ALLOW_ORIGIN = [
-  'http://localhost:5173',
+const ALLOW_ORIGIN: string[] = [
   'https://main--lp-code-challenge.netlify.app',
-  'https://main--lp-code-challenge.app',
-  'https://netlify.app',
+  'https://lp-code-challenge-frontend.vercel.app',
+  'http://localhost:5173'
 ];
+
 const CORS_SETUP = {
   origin: ALLOW_ORIGIN,
   credentials: true,
