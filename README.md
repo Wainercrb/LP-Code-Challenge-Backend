@@ -1,6 +1,6 @@
 # Node.js Application README
 
-This is a Node.js application aimed at addressing the TrueNorth code challenge available at the following link: [].
+This is a Node.js application aimed at addressing the TrueNorth code challenge.
 
 ## Requirements
 
@@ -28,6 +28,8 @@ Our application is built using the following technologies:
 - **Jest**: Delightful JavaScript Testing Framework with a focus on simplicity.
 - **Zod**: TypeScript-first schema declaration and validation library.
 - **AWS**: Cloud services for deploying and scaling web applications.
+- **jsonwebtoken**: JSON Web Token implementation for authentication.
+- **cookies**: Handling cookies for secure session management.
 
 ## Infrastructure
 
@@ -60,6 +62,25 @@ For database services, we utilize Filess.io, a free database service that provid
 ## Code Coverage
 
 We are proud to achieve almost 95% code coverage in our tests, ensuring the reliability and stability of our application.
+
+## Solution Provided
+
+### Routes Created:
+
+- **POST /sign-in**: User can sign in to the application.
+- **POST /sign-up**: User can sign up, with a default amount set, which will be reduced for each operation.
+- **GET /profile**: Get logged user info.
+- **GET /verify-user**: Check if user is logged in with valid credentials.
+- **GET /get-logged-user-records**: Get logged user records with pagination.
+- **POST /create-records**: User can create records, fetching the operation to assign the operation_id to the record.
+- **GET /get-available-operation**: Get available operations.
+
+### Application Flow:
+
+1. **Sign In**: Users can sign in to the application.
+2. **Sign Up**: Upon sign-up, a default amount is set, which is reduced for each operation.
+3. **List**: Users can list their records, sorting in ascending and descending order based on a given column and applying match filters.
+4. **Create Record**: Users can create records, fetching the operation to assign the operation_id to the record.
 
 ## Issues
 
