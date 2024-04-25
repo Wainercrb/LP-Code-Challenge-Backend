@@ -15,7 +15,7 @@ import { isAdmin } from '@infrastructure/middleware/role.middleware';
 
 const PORT = 3000;
 const CORS_SETUP = {
-  origin: ['http://localhost:5173', 'https://main--lp-code-challenge.netlify.app/'],
+  origin: ['http://localhost:5173', 'https://main--lp-code-challenge.netlify.app'],
   credentials: true,
 };
 
