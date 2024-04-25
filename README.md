@@ -1,6 +1,6 @@
 # Node.js Application README
 
-Welcome to our Node.js application! This README will guide you through setting up and running the project.
+This is a Node.js application aimed at addressing the TrueNorth code challenge available at the following link: [].
 
 ## Requirements
 
@@ -32,6 +32,8 @@ Our application is built using the following technologies:
 ## Infrastructure
 
 We have chosen a Domain-Driven Design (DDD) infrastructure to ensure scalability, maintainability, and flexibility in our application architecture.
+
+It's important to mention that this isn't a pure DDD architecture, but rather an attempt to replicate its basic concepts.
 
 ## CI/CD
 
