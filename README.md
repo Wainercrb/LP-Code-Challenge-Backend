@@ -12,8 +12,21 @@ This is a Node.js application aimed at addressing the TrueNorth code challenge.
 To get started, follow these simple steps:
 
 1. Clone this repository to your local machine.
-2. Install dependencies by running `npm install`.
-3. Depending on your preference:
+2. Make you that you are using the correct node version.
+3. Install dependencies by running `npm install`.
+4. Add the .env file with(It is not good practice to add these values here, but for this reason I will do it):
+   ```dosini
+   DB_HOST="c7q.h.filess.io"
+   DB_USER="mydatabase_rubbedtime"
+   DB_PASSWORD="fb4b5a5083c4c2a7ef7d96ca9f03e1985d495eee"
+   DB_PORT="3307"
+   DB_NAME="mydatabase_rubbedtime"
+   TOKEN_SECRET="secret"
+   RANDOM_ORG_API_KEY="0ca83608-4a7a-4128-b1f3-7794887d1203"
+   RANDOM_ORG_HASHED_KEY="A1vVwpBzrNWYcGBtL7qZRcO9K233zUC5QaLz20CP228ZpclxHSf33+dmqParhYBTKrtyNx90cd8c5xaUjPRcIQ=="
+   RANDOM_ORG_API_URL="https://api.random.org/json-rpc/2/invoke"
+   ```
+5. Depending on your preference:
    - For local development with TypeScript, run `npm run dev`.
    - For local development with pure JavaScript, run `npm run build && npm run start:dist` for transpiled files.
 
