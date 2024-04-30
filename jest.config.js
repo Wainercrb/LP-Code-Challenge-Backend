@@ -7,6 +7,9 @@ module.exports = {
     '^@domain/(.*)$': '<rootDir>/src/domain/$1',
     '^@infrastructure/(.*)$': '<rootDir>/src/infrastructure/$1',
   },
+  collectCoverageFrom: [
+    'src/**/*.{ts,tsx}'
+  ],
   coveragePathIgnorePatterns: [
     "<rootDir>/src/domain/entities/" ,
     "<rootDir>/src/infrastructure/database"
