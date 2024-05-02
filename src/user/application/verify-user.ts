@@ -18,7 +18,7 @@ export class VerifyUser {
   async execute(token: string): Promise<User> {
     logger.info('[VerifyUser] - Start verifying user.');
 
-    const { id: userID } = await this.authService.verifyJWT(token, config.authentication.secret);
+    const { userID } = await this.authService.verifyJWT(token, config.authentication.secret);
 
     if (!userID) throw new Error401('Token is invalid');
 

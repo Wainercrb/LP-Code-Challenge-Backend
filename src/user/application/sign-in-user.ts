@@ -26,7 +26,7 @@ export class SignInUser {
     if (!passwordMatch) throw new Error401();
 
     const tokenPayload = {
-      id: foundUser.id,
+      userID: foundUser.id,
       role: foundUser.role,
       username: foundUser.username,
     };

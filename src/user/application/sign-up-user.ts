@@ -29,7 +29,7 @@ export class SignUpUser {
     const createdUser = await this.userRepository.createUser(username, hashedPassword, role, 10000);
 
     const tokenPayload = {
-      id: createdUser.id,
+      userID: createdUser.id,
       role: createdUser.role,
       username: createdUser.username,
     };

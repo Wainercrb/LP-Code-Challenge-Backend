@@ -2,7 +2,7 @@ import { NextFunction, Response } from 'express';
 
 // Shared
 import { MiddlewareRequest } from '@/shared/domain/middleware-request';
-import { validateUserContext } from '@/shared/infra/validations/user-context';
+import { validateLoggedUser } from '@/shared/infra/validations/logged-user';
 import { validatePagination } from '@/shared/infra/validations/pagination';
 
 // Use Cases
@@ -23,7 +23,7 @@ export class Controller {
   async create(req: MiddlewareRequest, res: Response, next: NextFunction) {
     try {
       const { operation_id, valueA, valueB } = validateCreateRecord(req.body);
-      const { id: userID } = validateUserContext(req.user as unknown as Record<string, unknown>);
+      const { userID } = validateLoggedUser(req.user as unknown as Record<string, unknown>);
 
       const record = await this.createRecord.execute(userID, operation_id, valueA, valueB);
 
@@ -36,7 +36,7 @@ export class Controller {
   async list(req: MiddlewareRequest, res: Response, next: NextFunction) {
     try {
       const pagination = validatePagination(req.query);
-      const { id: userID } = validateUserContext(req.user as unknown as Record<string, unknown>);
+      const { userID } = validateLoggedUser(req.user as unknown as Record<string, unknown>);
 
       const operations = await this.listRecord.execute(userID, pagination);
 

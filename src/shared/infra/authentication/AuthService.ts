@@ -15,7 +15,7 @@ export class AuthService {
     });
   }
 
-  createJWT(payload: object): Promise<string | undefined> {
+  createJWT(payload: MiddlewareUser): Promise<string | undefined> {
     return new Promise((resolve, reject) => {
       jwt.sign(payload, config.authentication.secret, { expiresIn: config.authentication.tokenExp }, (err, token) => {
         if (err) reject(err);

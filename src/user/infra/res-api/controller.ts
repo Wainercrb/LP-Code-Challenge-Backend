@@ -5,7 +5,7 @@ import { config } from '@/shared/infra/config';
 
 // Shared
 import { MiddlewareRequest } from '@/shared/domain/middleware-request';
-import { validateUserContext } from '@/shared/infra/validations/user-context';
+import { validateLoggedUser } from '@/shared/infra/validations/logged-user';
 
 // Use Cases
 import { GetUser } from '@/user/application/get-user';
@@ -77,7 +77,7 @@ export class Controller {
 
   async getById(req: MiddlewareRequest, res: Response, next: NextFunction) {
     try {
-      const { id: userID } = validateUserContext(req.user as unknown as Record<string, unknown>);
+      const { userID } = validateLoggedUser(req.user as unknown as Record<string, unknown>);
 
       const user = await this.getUser.execute(userID);
 
