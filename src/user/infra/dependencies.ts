@@ -1,18 +1,19 @@
-// import { emailSender, logger } from "../../shared/infrastructure/dependencies";
-import { SignInUseCase } from '@/user/application/signin';
 import { SequelizeUserRepository } from '@/user/infra/repository/sequelize-user-repository';
 import { AuthService } from '@/shared/infra/authentication/AuthService';
-import { GetUserUseCase } from '@/user/application/get';
-import { VerifyUseCase } from '../application/verify';
-import { SignUpUseCase } from '@/user/application/signup';
-import { Controller } from './res-api/controller';
+import { SignInUser } from '@/user/application/sign-in-user';
+import { GetUser } from '@/user/application/get-user';
+import { VerifyUser } from '@/user/application/verify-user';
+import { SignUpUser } from '@/user/application/sign-up-user';
+import { Controller } from '@/user/infra/res-api/controller';
 
+// Services & Repositories
 const userRepository = new SequelizeUserRepository();
 const authService = new AuthService();
 
-const signInUseCase = new SignInUseCase(userRepository, authService);
-const signUpUseCase = new SignUpUseCase(userRepository, authService);
-const getUserUseCase = new GetUserUseCase(userRepository);
-const verifyUseCase = new VerifyUseCase(userRepository, authService);
+// Use Cases
+const userSignIn = new SignInUser(userRepository, authService);
+const userSignUp = new SignUpUser(userRepository, authService);
+const getUser = new GetUser(userRepository);
+const verifyUser = new VerifyUser(userRepository, authService);
 
-export const controller = new Controller(signUpUseCase, signInUseCase, getUserUseCase, verifyUseCase);
+export const controller = new Controller(userSignUp, userSignIn, getUser, verifyUser);

@@ -1,29 +1,29 @@
-import { AuthService } from '@/shared/infra/authentication/AuthService';
-import { User } from '../domain/user';
+import { User } from '@/user/domain/user';
+
+// Repositories
+import { UserRepository } from '@/user/domain/user-repository';
+
+// Shared
 import { Error401, Error500 } from '@/shared/infra/errors/handler';
-import { UserRepository } from '../domain/user-repository';
+import { AuthService } from '@/shared/infra/authentication/AuthService';
 import { logger } from '@/shared/infra/logger/logger';
 
-export class SignInUseCase {
+export class SignInUser {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly authService: AuthService,
   ) {}
 
   async execute(username: string, password: string): Promise<{ user: User; token: string }> {
-    logger.info(`[SignInUseCase] - Sign-in start username: ${username}`);
+    logger.info(`[SignInUser] - Sign-in start. Username: ${username}`);
 
     const foundUser = await this.userRepository.getOneByUsername(username);
 
-    if (!foundUser) {
-      throw new Error401();
-    }
+    if (!foundUser) throw new Error401();
 
     const passwordMatch = await this.authService.comparePasswords(password, foundUser.password);
 
-    if (!passwordMatch) {
-      throw new Error401();
-    }
+    if (!passwordMatch) throw new Error401();
 
     const tokenPayload = {
       id: foundUser.id,
@@ -33,11 +33,9 @@ export class SignInUseCase {
 
     const token = await this.authService.createJWT(tokenPayload);
 
-    if (!token) {
-      throw new Error500();
-    }
+    if (!token) throw new Error500('Error creating your token.');
 
-    logger.info(`[SignInUseCase] - Sign-in end username:${username}, id:${foundUser.id}`);
+    logger.info(`[SignInUser] - Sign-in successful. Username: ${username}, UserID: ${foundUser.id}`);
 
     return {
       token,
