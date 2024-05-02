@@ -3,7 +3,7 @@ import { OperationRepository } from '@/operation/domain/operation-repository';
 import { Operation } from '@/operation/domain/operation';
 import { SequelizeOperation } from '@/shared/infra/database/models/Operation';
 import { PaginationProps, PaginationResult } from '@/shared/domain/pagination';
-import { buildPaginationRequest, buildPaginationResponse } from '@/shared/infra/pagination/default.pagination';
+import { buildPaginationRequest, buildPaginationResponse } from '@/shared/infra/pagination/pagination';
 import { toOperationList, toSingleOperation } from '@/operation/infra/repository/mapper';
 
 export class SequelizeOperationRepository implements OperationRepository {

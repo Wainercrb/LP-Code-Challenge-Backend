@@ -2,7 +2,7 @@ import { Order, WhereOptions, Op, Transaction } from 'sequelize';
 import { sequelize } from '@/shared/infra/database/sequelize';
 import { SequelizeOperation } from '@/shared/infra/database/models/Operation';
 import { PaginationProps, PaginationResult } from '@/shared/domain/pagination';
-import { buildPaginationRequest, buildPaginationResponse } from '@/shared/infra/pagination/default.pagination';
+import { buildPaginationRequest, buildPaginationResponse } from '@/shared/infra/pagination/pagination';
 import { RecordRepository } from '@/record/domain/record-repository';
 import { Record } from '@/record/domain/record';
 import { SequelizeRecord } from '@/shared/infra/database/models/Record';
