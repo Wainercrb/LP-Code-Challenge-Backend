@@ -5,8 +5,8 @@ import { UserRepository } from '@/user/domain/user-repository';
 
 // Shared
 import { Error401, Error500 } from '@/shared/infra/errors/handler';
-import { AuthService } from '@/shared/infra/authentication/AuthService';
-import { BcryptService } from '@/shared/infra/authentication/BcryptService';
+import { AuthService } from '@/shared/infra/authentication/auth-service';
+import { BcryptService } from '@/shared/infra/authentication/bcrypt-service';
 import { logger } from '@/shared/infra/logger/logger';
 
 export class SignInUser {

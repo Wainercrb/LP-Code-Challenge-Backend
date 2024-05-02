@@ -1,6 +1,6 @@
 import express from 'express';
 import { controller } from '@/record/infra/dependencies';
-import { AuthService } from '@/shared/infra/authentication/AuthService';
+import { AuthService } from '@/shared/infra/authentication/auth-service';
 
 const recordRouter = express.Router();
 const authService = new AuthService();

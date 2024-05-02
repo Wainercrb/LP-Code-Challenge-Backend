@@ -4,7 +4,7 @@ import { User } from '@/user/domain/user';
 import { UserRepository } from '@/user/domain/user-repository';
 
 // Shared
-import { AuthService } from '@/shared/infra/authentication/AuthService';
+import { AuthService } from '@/shared/infra/authentication/auth-service';
 import { Error401, Error404 } from '@/shared/infra/errors/handler';
 import { logger } from '@/shared/infra/logger/logger';
 import { config } from '@/shared/infra/config';

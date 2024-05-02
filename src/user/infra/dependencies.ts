@@ -1,6 +1,6 @@
 import { SequelizeUserRepository } from '@/user/infra/repository/sequelize-user-repository';
-import { AuthService } from '@/shared/infra/authentication/AuthService';
-import { BcryptService } from '@/shared/infra/authentication/BcryptService';
+import { AuthService } from '@/shared/infra/authentication/auth-service';
+import { BcryptService } from '@/shared/infra/authentication/bcrypt-service';
 import { SignInUser } from '@/user/application/sign-in-user';
 import { GetUser } from '@/user/application/get-user';
 import { VerifyUser } from '@/user/application/verify-user';

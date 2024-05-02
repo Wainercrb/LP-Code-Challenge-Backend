@@ -1,7 +1,7 @@
 import { Response, NextFunction } from 'express';
 import { config } from '@/shared/infra/config';
 import { MiddlewareRequest } from '@/shared/domain/middleware-request';
-import { JwtService } from '@/shared/infra/authentication/JwtService';
+import { JwtService } from '@/shared/infra/authentication/jwt-service';
 
 export class AuthService extends JwtService {
   constructor() {
