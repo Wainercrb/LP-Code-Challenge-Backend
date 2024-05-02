@@ -1,9 +1,11 @@
 import { SequelizeOperationRepository } from '@/operation/infra/repository/sequelize-user-repository';
-import { List } from '@/operation/application/list';
+import { ListOperation } from '@/operation/application/list-operation';
 import { Controller } from '@/operation/infra/res-api/controller';
 
+// Services & Repositories
 const operationRepository = new SequelizeOperationRepository();
 
-const listUseCase = new List(operationRepository);
+// Use Cases
+const listOperation = new ListOperation(operationRepository);
 
-export const controller = new Controller(listUseCase);
+export const controller = new Controller(listOperation);
