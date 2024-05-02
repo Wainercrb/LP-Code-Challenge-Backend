@@ -1,35 +1,30 @@
-import bcrypt from 'bcryptjs';
-import jwt from 'jsonwebtoken';
+import { Response, NextFunction } from 'express';
 import { config } from '@/shared/infra/config';
-import { MiddlewareUser } from '@/shared/domain/middleware-request'
+import { MiddlewareRequest } from '@/shared/domain/middleware-request';
+import { JwtService } from '@/shared/infra/authentication/JwtService';
 
-export class AuthService {
-  constructor() {}
-
-  verifyJWT(token: string, secret: string): Promise<MiddlewareUser> {
-    return new Promise((resolve, reject) => {
-      jwt.verify(token, secret, (err, decoded) => {
-        if (err) return reject(err);
-        resolve(decoded as MiddlewareUser);
-      });
-    });
+export class AuthService extends JwtService {
+  constructor() {
+    super();
   }
 
-  createJWT(payload: MiddlewareUser): Promise<string | undefined> {
-    return new Promise((resolve, reject) => {
-      jwt.sign(payload, config.authentication.secret, { expiresIn: config.authentication.tokenExp }, (err, token) => {
-        if (err) reject(err);
-        resolve(token);
-      });
-    });
-  }
+  handleAuthentication = async (req: MiddlewareRequest, res: Response, next: NextFunction) => {
+    try {
+      if (!req.cookies) return res.status(401).json({ message: 'No cookies found, authorization denied' });
 
-  async comparePasswords(passwordA: string, passwordB: string): Promise<boolean> {
-    console.log(passwordA, passwordB);
-    return bcrypt.compare(passwordA, passwordB);
-  }
+      const { token } = req.cookies;
 
-  async generatePasswordHash(password: string): Promise<string> {
-    return bcrypt.hash(password, 10);
-  }
+      if (!token) return res.status(401).json({ message: 'No token, authorization denied' });
+
+      const decoded = await this.verifyJWT(token, config.authentication.secret);
+
+      if (!decoded) return res.status(401).json({ message: 'Token is not valid' });
+
+      req.user = decoded;
+
+      next();
+    } catch (error) {
+      return res.status(500).json({ message: (error as Error).message });
+    }
+  };
 }

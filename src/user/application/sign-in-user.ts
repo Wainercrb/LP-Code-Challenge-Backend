@@ -6,12 +6,14 @@ import { UserRepository } from '@/user/domain/user-repository';
 // Shared
 import { Error401, Error500 } from '@/shared/infra/errors/handler';
 import { AuthService } from '@/shared/infra/authentication/AuthService';
+import { BcryptService } from '@/shared/infra/authentication/BcryptService';
 import { logger } from '@/shared/infra/logger/logger';
 
 export class SignInUser {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly authService: AuthService,
+    private readonly bcryptService: BcryptService,
   ) {}
 
   async execute(username: string, password: string): Promise<{ user: User; token: string }> {
@@ -21,7 +23,7 @@ export class SignInUser {
 
     if (!foundUser) throw new Error401();
 
-    const passwordMatch = await this.authService.comparePasswords(password, foundUser.password);
+    const passwordMatch = await this.bcryptService.comparePasswords(password, foundUser.password);
 
     if (!passwordMatch) throw new Error401();
 

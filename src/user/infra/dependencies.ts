@@ -1,5 +1,6 @@
 import { SequelizeUserRepository } from '@/user/infra/repository/sequelize-user-repository';
 import { AuthService } from '@/shared/infra/authentication/AuthService';
+import { BcryptService } from '@/shared/infra/authentication/BcryptService';
 import { SignInUser } from '@/user/application/sign-in-user';
 import { GetUser } from '@/user/application/get-user';
 import { VerifyUser } from '@/user/application/verify-user';
@@ -8,11 +9,12 @@ import { Controller } from '@/user/infra/res-api/controller';
 
 // Services & Repositories
 const userRepository = new SequelizeUserRepository();
+const bcryptService = new BcryptService();
 const authService = new AuthService();
 
 // Use Cases
-const userSignIn = new SignInUser(userRepository, authService);
-const userSignUp = new SignUpUser(userRepository, authService);
+const userSignIn = new SignInUser(userRepository, authService, bcryptService);
+const userSignUp = new SignUpUser(userRepository, authService, bcryptService);
 const getUser = new GetUser(userRepository);
 const verifyUser = new VerifyUser(userRepository, authService);
 

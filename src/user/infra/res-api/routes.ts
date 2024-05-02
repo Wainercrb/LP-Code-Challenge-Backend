@@ -1,13 +1,14 @@
 import express from 'express';
-import { auth } from '@/shared/infra/authentication/AuthMiddleware';
 import { controller } from '@/user/infra/dependencies';
+import { AuthService } from '@/shared/infra/authentication/AuthService';
 
 const userRouter = express.Router();
+const authService = new AuthService()
 
-userRouter.get('/', auth, controller.getById.bind(controller));
+userRouter.get('/', authService.handleAuthentication, controller.getById.bind(controller));
 userRouter.post('/', controller.signUp.bind(controller));
 userRouter.post('/sign-in', controller.signIn.bind(controller));
 userRouter.post('/sign-out', controller.signOut.bind(controller));
-userRouter.get('/verify', auth, controller.verify.bind(controller));
+userRouter.get('/verify', authService.handleAuthentication, controller.verify.bind(controller));
 
 export { userRouter };

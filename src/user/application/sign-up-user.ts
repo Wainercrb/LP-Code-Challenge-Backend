@@ -7,12 +7,14 @@ import { UserRepository } from '@/user/domain/user-repository';
 // Shared
 import { Error400, Error500 } from '@/shared/infra/errors/handler';
 import { AuthService } from '@/shared/infra/authentication/AuthService';
+import { BcryptService } from '@/shared/infra/authentication/BcryptService';
 import { logger } from '@/shared/infra/logger/logger';
 
 export class SignUpUser {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly authService: AuthService,
+    private readonly bcryptService: BcryptService
   ) {}
 
   async execute(username: string, password: string, role: Role): Promise<{ user: User; token: string }> {
@@ -24,7 +26,7 @@ export class SignUpUser {
 
     logger.info(`[SignUpUser] - New user. Username: ${username}`);
 
-    const hashedPassword = await this.authService.generatePasswordHash(password);
+    const hashedPassword = await this.bcryptService.generatePasswordHash(password);
 
     const createdUser = await this.userRepository.createUser(username, hashedPassword, role, 10000);
 
