@@ -1,17 +1,23 @@
 import axios from 'axios';
+import { RecordRepository } from '@/record/domain/record-repository';
+import { OperationType } from '@/operation/domain/operation-type';
+import { Record } from '@/record/domain/record';
+
+// Repositories
+import { UserRepository } from '@/user/domain/user-repository';
+import { OperationRepository } from '@/operation/domain/operation-repository';
+
+// Shared
 import { config } from '@/shared/infra/config';
 import { logger } from '@/shared/infra/logger/logger';
 import { Error400, Error404 } from '@/shared/infra/errors/handler';
-import { RecordRepository } from '@/record/domain/record-repository';
-import { Record } from '@/record/domain/record';
-import { UserRepository } from '@/user/domain/user-repository';
-import { OperationRepository } from '@/operation/domain/operation-repository';
-import { OperationType } from '@/operation/domain/operation-type';
+
+// Database
 import { sequelize } from '@/shared/infra/database/sequelize';
 
 type OperationRecord<K extends string | number | symbol, T> = { [P in K]: T };
 
-export class Create {
+export class CreateRecord {
   constructor(
     private readonly recordRepository: RecordRepository,
     private readonly userRepository: UserRepository,
@@ -19,7 +25,7 @@ export class Create {
   ) {}
 
   async execute(userID: number, operationId: number, valueA: number, valueB: number): Promise<Record | null> {
-    logger.info(`[GetAllOperations] - starting start`);
+    logger.info('[CreateRecord] - Start creating record.');
 
     const foundUser = await this.userRepository.getOneById(userID);
 
@@ -34,7 +40,7 @@ export class Create {
     if (newUserBalance <= 0) throw new Error400('Your balance is negative');
 
     const operationResult = await this.makeOperation(foundOperation.type as OperationType, valueA, valueB);
-    const operationResultAsNumber = typeof operationResult === 'number' ? operationResult : 0
+    const operationResultAsNumber = typeof operationResult === 'number' ? operationResult : 0;
 
     if (foundOperation.type !== OperationType.random_string && !isFinite(operationResultAsNumber)) {
       throw new Error400('Error processing your operation, please check the values');
@@ -70,7 +76,7 @@ export class Create {
       };
     });
 
-    logger.info(`[GetUserUseCase] - end`);
+    logger.info(`[CreateRecord] - Successfully created record. ${createdRecord}`);
 
     return createdRecord;
   }
