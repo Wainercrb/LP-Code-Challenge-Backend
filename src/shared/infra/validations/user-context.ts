@@ -1,6 +1,6 @@
 import Zod from 'zod';
-import { User } from '@/users/domain/user';
-import { Role } from '@/users/domain/user-role';
+import { User } from '@/user/domain/user';
+import { Role } from '@/user/domain/user-role';
 
 const schema = Zod.object({
   id: Zod.number(),

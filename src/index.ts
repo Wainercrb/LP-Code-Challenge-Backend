@@ -64,9 +64,9 @@ import express from "express";
 import cookieParser from "cookie-parser";
 
 import { config } from "@/shared/infra/config";
-import { userRouter } from "@/users/infra/res-api/routes";
-import { operationRouter } from "@/operations/infra/res-api/routes";
-import { recordRouter } from "@/records/infra/res-api/routes";
+import { userRouter } from "@/user/infra/res-api/routes";
+import { operationRouter } from "@/operation/infra/res-api/routes";
+import { recordRouter } from "@/record/infra/res-api/routes";
 
 
 

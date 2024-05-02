@@ -1,6 +1,6 @@
 import Zod from 'zod';
-import { User } from '@/users/domain/user';
-import { Role } from '@/users/domain/user-role';
+import { User } from '@/user/domain/user';
+import { Role } from '@/user/domain/user-role';
 
 const schema = Zod.object({
   username: Zod.string().min(3).max(30),
