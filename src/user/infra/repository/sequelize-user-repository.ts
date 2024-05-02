@@ -1,7 +1,7 @@
 import { User } from '@/user/domain/user';
+import { Role } from '@/user/domain/user-role';
 import { UserRepository } from '@/user/domain/user-repository';
 import { SequelizeUser } from '@/shared/infra/database/models/User';
-import { Role } from '@/user/domain/user-role';
 import { toSingleUser } from '@/user/infra/repository/mapper';
 import { Transaction } from 'sequelize';
 
