@@ -7,6 +7,7 @@
     "test": "jest",
     "test:band": "jest --runInBand",
     "test:coverage": "jest --coverage",
+    "test:coverage:band": "jest --coverage --runInBand",
     "test:coverage-simple": "jest --coverage --coverageReporters='json-summary'",
     "dev": "ts-node-dev --respawn -r tsconfig-paths/register src/index.ts",
     "start": "ts-node -r tsconfig-paths/register src/index.ts",

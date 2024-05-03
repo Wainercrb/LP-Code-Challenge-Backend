@@ -1,89 +1,185 @@
 import request from 'supertest';
 import express from 'express';
-import { controller } from '../../../../src/user/infra/dependencies';
-import { AuthService } from '../../../../src/shared/infra/authentication/auth-service';
+import cors from 'cors';
+import cookieParser from 'cookie-parser';
+import { ZodError } from 'zod';
 import { userRouter } from '../../../../src/user/infra/res-api/routes';
+import { Role } from '../../../../src/user/domain/user-role';
+import { SequelizeUser } from '../../../../src/shared/infra/database/models/User';
+import { errorHandler } from '../../../../src/shared/infra/errors/handler';
 
 const app = express();
-const authService = new AuthService();
 
+app.use(cors());
 app.use(express.json());
-app.use('/users', userRouter);
+app.use(cookieParser());
+app.use('/user', userRouter);
+app.use(errorHandler);
 
-
-console.log('node env', process.env.NODE_ENV)
-
-describe('userRouter', () => {
+describe('[user-router]', () => {
   afterEach(() => {
     jest.clearAllMocks();
   });
 
-  it('should handle GET request to "/" route', async () => {
-    const mockData = { id: 1, username: 'test_user' };
-    const mockGetById = jest.spyOn(controller, 'getById').mockResolvedValue(Promise.resolve());
+  it('Should handle SIGN-IN with valid credentials', async () => {
+    const [randomUser] = await SequelizeUser.findAll();
 
-    const res = await request(app).get('/users');
+    const { status, body } = await request(app).post('/user/sign-in').send({
+      username: randomUser.username,
+      password: '1234567890',
+    });
 
-    expect(res.status).toBe(200);
-    expect(res.body).toEqual(mockData);
-    expect(mockGetById).toHaveBeenCalled();
-
-    mockGetById.mockRestore();
+    expect(status).toBe(200);
+    expect(body).toStrictEqual({
+      id: randomUser.id,
+      username: randomUser.username,
+      role: randomUser.role,
+      balance: randomUser.balance,
+      password: '',
+    });
   });
 
-//   it('should handle POST request to "/" route', async () => {
-//     const mockData = { id: 1, username: 'test_user' };
-//     const mockSignUp = jest.spyOn(controller, 'signUp').mockResolvedValue(Promise.resolve(mockData));
+  it('Should handle SIGN-IN with invalid credentials', async () => {
+    const { status, body } = await request(app).post('/user/sign-in').send({
+      username: 'test',
+      password: 'test',
+    });
 
-//     const res = await request(app)
-//       .post('/users')
-//       .send({ username: 'test_user', password: 'password123', role: 'admin', balance: 100 });
+    expect(status).toBe(401);
+    expect(body.error).toBe('Invalid credentials.');
+  });
 
-//     expect(res.status).toBe(200);
-//     expect(res.body).toEqual(mockData);
-//     expect(mockSignUp).toHaveBeenCalled();
+  it('Should handle SIGN-IN with missing payload', async () => {
+    const { status, body } = await request(app).post('/user/sign-in').send({
+      username: '',
+      password: '',
+    });
 
-//     mockSignUp.mockRestore();
-//   });
+    expect(status).toBe(400);
+    expect(JSON.parse(body.error).map((item: ZodError) => item.message)).toStrictEqual([
+      'String must contain at least 3 character(s)',
+      'String must contain at least 3 character(s)',
+    ]);
+  });
 
-//   it('should handle POST request to "/sign-in" route', async () => {
-//     const mockData = { id: 1, username: 'test_user' };
-//     const mockSignIn = jest.spyOn(controller, 'signIn').mockResolvedValue(Promise.resolve(mockData));
+  it('Should handle GET user with valid credentials', async () => {
+    const [randomUser] = await SequelizeUser.findAll();
 
-//     const res = await request(app)
-//       .post('/users/sign-in')
-//       .send({ username: 'test_user', password: 'password123' });
+    const { header } = await request(app).post('/user/sign-in').send({
+      username: randomUser.username,
+      password: '1234567890',
+    });
 
-//     expect(res.status).toBe(200);
-//     expect(res.body).toEqual(mockData);
-//     expect(mockSignIn).toHaveBeenCalled();
+    const { status, body } = await request(app)
+      .get('/user')
+      .set('Cookie', [...header['set-cookie']])
+      .send({
+        username: randomUser.username,
+        password: '1234567890',
+      });
 
-//     mockSignIn.mockRestore();
-//   });
+    expect(status).toBe(200);
+    expect(body).toStrictEqual({
+      id: randomUser.id,
+      username: randomUser.username,
+      role: randomUser.role,
+      balance: randomUser.balance,
+      password: '',
+    });
+  });
 
-//   it('should handle POST request to "/sign-out" route', async () => {
-//     const mockData = { message: 'User signed out successfully' };
-//     const mockSignOut = jest.spyOn(controller, 'signOut').mockResolvedValue(Promise.resolve(mockData));
+  it('Should handle GET user with invalid credentials', async () => {
+    const [randomUser] = await SequelizeUser.findAll();
 
-//     const res = await request(app).post('/users/sign-out');
+    const { status, body } = await request(app).get('/user').set('Cookie', ['none']).send({
+      username: randomUser.username,
+      password: '1234567890',
+    });
 
-//     expect(res.status).toBe(200);
-//     expect(res.body).toEqual(mockData);
-//     expect(mockSignOut).toHaveBeenCalled();
+    expect(status).toBe(401);
+    expect(body.message).toBe('No token, authorization denied');
+  });
 
-//     mockSignOut.mockRestore();
-//   });
+  it('Should handle SIGN-UP with valid credentials', async () => {
+    const { status, body } = await request(app).post('/user').send({
+      username: 'signup-testing',
+      password: 'signup-testing',
+      role: Role.admin,
+    });
 
-//   it('should handle GET request to "/verify" route', async () => {
-//     const mockData = { id: 1, username: 'test_user' };
-//     const mockVerify = jest.spyOn(controller, 'verify').mockResolvedValue(Promise.resolve(mockData));
+    expect(status).toBe(201);
+    expect({
+      username: body.username,
+      role: body.role,
+      balance: body.balance,
+    }).toStrictEqual({
+      username: 'signup-testing',
+      role: Role.admin,
+      balance: 10000,
+    });
+  });
 
-//     const res = await request(app).get('/users/verify');
+  it('Should handle SIGN-UP with missing payload', async () => {
+    const { status, body } = await request(app).post('/user').send({
+      username: '',
+      password: '',
+      role: '',
+    });
 
-//     expect(res.status).toBe(200);
-//     expect(res.body).toEqual(mockData);
-//     expect(mockVerify).toHaveBeenCalled();
+    expect(status).toBe(400);
+    expect(JSON.parse(body.error).map((item: ZodError) => item.message)).toStrictEqual([
+      'String must contain at least 3 character(s)',
+      'String must contain at least 3 character(s)',
+      "Invalid enum value. Expected 'admin' | 'guess', received ''",
+    ]);
+  });
 
-//     mockVerify.mockRestore();
-//   });
+  it('Should handle SIGN-OUT', async () => {
+    const [randomUser] = await SequelizeUser.findAll();
+
+    const { header } = await request(app).post('/user/sign-in').send({
+      username: randomUser.username,
+      password: '1234567890',
+    });
+
+    const { status } = await request(app)
+      .post('/user/sign-out')
+      .set('Cookie', [...header['set-cookie']])
+      .send({
+        username: 'signup-testing',
+        password: 'signup-testing',
+        role: Role.admin,
+      });
+
+    expect(status).toBe(200);
+  });
+
+  it('Should handle VERIFY user with valid credentials', async () => {
+    const [randomUser] = await SequelizeUser.findAll();
+
+    const { header } = await request(app).post('/user/sign-in').send({
+      username: randomUser.username,
+      password: '1234567890',
+    });
+
+    const { status, body } = await request(app)
+      .get('/user/verify')
+      .set('Cookie', [...header['set-cookie']]);
+
+    expect(status).toBe(200);
+    expect(body).toStrictEqual({
+      id: randomUser.id,
+      username: randomUser.username,
+      role: randomUser.role,
+      balance: randomUser.balance,
+      password: '',
+    });
+  });
+
+  it('Should handle VERIFY throw since invalid credentials', async () => {
+    const { status, body } = await request(app).get('/user/verify');
+
+    expect(status).toBe(401);
+    expect(body.message).toBe('No token, authorization denied');
+  });
 });
