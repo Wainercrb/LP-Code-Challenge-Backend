@@ -2,20 +2,11 @@ import jwt from 'jsonwebtoken';
 import { SequelizeUser } from '../../../src/shared/infra/database/models/User';
 import { SequelizeUserRepository } from '../../../src/user/infra/repository/sequelize-user-repository';
 import { SignInUser } from '../../../src/user/application/sign-in-user';
-import { setupDatabase, teardownDatabase } from '../../../tests/shared/infra/setup-database';
 import { Error500, Error401 } from '../../../src/shared/infra/errors/handler';
 import { BcryptService } from '../../../src/shared/infra/authentication/bcrypt-service';
 import { AuthService } from '../../../src/shared/infra/authentication/auth-service';
 
 describe('[sign-in-user]', () => {
-  beforeAll(async () => {
-    await setupDatabase();
-  });
-
-  afterAll(async () => {
-    await teardownDatabase();
-  });
-
   it('Should sign-in with valid user', async () => {
     const [randomUser] = await SequelizeUser.findAll();
 
@@ -85,8 +76,8 @@ describe('[sign-in-user]', () => {
 
     const signInUser = new SignInUser(userRepository, authService, bcryptService);
 
-    expect(async () => {
-      await signInUser.execute(randomUser.username, '1234567890');
+    await expect(async () => {
+      return signInUser.execute(randomUser.username, '1234567890');
     }).rejects.toThrow(new Error500('Error creating your token.'));
   });
 });

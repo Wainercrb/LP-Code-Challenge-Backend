@@ -5,11 +5,10 @@ module.exports = {
   moduleNameMapper: {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
-  collectCoverageFrom: [
-    'src/**/*.{ts,tsx}'
-  ],
-  coveragePathIgnorePatterns: [
-    "<rootDir>/src/domain/entities/" ,
-    "<rootDir>/src/infrastructure/database"
-  ]
+  // paths config
+  collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+  coveragePathIgnorePatterns: ['<rootDir>/src/domain/entities/', '<rootDir>/src/infrastructure/database'],
+
+  // setup test
+  setupFilesAfterEnv: ['<rootDir>/tests/shared/infra/setup-tests.ts'],
 };

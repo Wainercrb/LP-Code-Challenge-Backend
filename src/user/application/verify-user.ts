@@ -20,7 +20,7 @@ export class VerifyUser {
 
     const { userID } = await this.authService.verifyJWT(token, config.authentication.secret);
 
-    if (!userID) throw new Error401('Token is invalid');
+    if (typeof userID === 'number' === false || userID < 0) throw new Error401('Token is invalid.');
 
     logger.info(`[VerifyUser] - Successfully verified user. UserID: ${userID}`);
 

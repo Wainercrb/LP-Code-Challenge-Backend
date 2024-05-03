@@ -2,21 +2,12 @@ import jwt from 'jsonwebtoken';
 import { SequelizeUser } from '../../../src/shared/infra/database/models/User';
 import { SequelizeUserRepository } from '../../../src/user/infra/repository/sequelize-user-repository';
 import { SignUpUser } from '../../../src/user/application/sign-up-user';
-import { setupDatabase, teardownDatabase } from '../../../tests/shared/infra/setup-database';
 import { Role } from '../../../src/user/domain/user-role';
 import { Error500, Error400 } from '../../../src/shared/infra/errors/handler';
 import { BcryptService } from '../../../src/shared/infra/authentication/bcrypt-service';
 import { AuthService } from '../../../src/shared/infra/authentication/auth-service';
 
 describe('[sign-up-user]', () => {
-  beforeAll(async () => {
-    await setupDatabase();
-  });
-
-  afterAll(async () => {
-    await teardownDatabase();
-  });
-
   it('Should sign-up with valid user', async () => {
     const userRepository = new SequelizeUserRepository();
 
@@ -53,9 +44,9 @@ describe('[sign-up-user]', () => {
 
     const signUpUser = new SignUpUser(userRepository, authService, bcryptService);
 
-    expect(async () => {
-      await signUpUser.execute(randomUser.username, '1234567890', Role.admin);
-    }).rejects.toThrow(Error400);
+    await expect(async () => {
+      return signUpUser.execute(randomUser.username, '1234567890', Role.admin);
+    }).rejects.toThrow(new Error400('Username already exist.'));
   });
 
   it('Should throw an error creating the token', async () => {
@@ -71,8 +62,8 @@ describe('[sign-up-user]', () => {
 
     const signUpUser = new SignUpUser(userRepository, authService, bcryptService);
 
-    expect(async () => {
-      await signUpUser.execute('test1', '1234567890', Role.admin);
+    await expect(async () => {
+      return signUpUser.execute('signuptest', '1234567890', Role.admin);
     }).rejects.toThrow(new Error500('Error creating your token.'));
   });
 });
