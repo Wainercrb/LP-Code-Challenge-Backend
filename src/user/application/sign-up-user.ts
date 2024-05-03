@@ -14,7 +14,7 @@ export class SignUpUser {
   constructor(
     private readonly userRepository: UserRepository,
     private readonly authService: AuthService,
-    private readonly bcryptService: BcryptService
+    private readonly bcryptService: BcryptService,
   ) {}
 
   async execute(username: string, password: string, role: Role): Promise<{ user: User; token: string }> {
@@ -38,7 +38,7 @@ export class SignUpUser {
 
     const token = await this.authService.createJWT(tokenPayload);
 
-    if (!token) throw new Error500();
+    if (!token) throw new Error500('Error creating your token.');
 
     logger.info(`[SignUpUser] - Sign-up successful. Username: ${username}, UserID: ${createdUser.id}`);
 

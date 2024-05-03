@@ -9,7 +9,7 @@ describe('[get-user-test]', () => {
     await setupDatabase();
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     await teardownDatabase();
   });
 
