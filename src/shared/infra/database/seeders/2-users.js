@@ -1,39 +1,10 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const seedData = [
-      {
-        username: 'admin',
-        password: '$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K',
-        role: 'admin',
-        balance: 10000,
-      },
-      {
-        username: 'juan',
-        password: '$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K',
-        role: 'guess',
-        balance: 7000,
-      },
-      {
-        username: 'luis',
-        password: '$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K',
-        role: 'guess',
-        balance: 7600,
-      },
-      {
-        username: 'carlos',
-        password: '$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K',
-        role: 'guess',
-        balance: 7100,
-      },
-      {
-        username: 'lucas',
-        password: '$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K',
-        role: 'guess',
-        balance: 7800,
-      },
-    ];
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { userData } = require('../seed-data/data.json');
 
-    await queryInterface.bulkInsert('users', seedData);
+    await queryInterface.bulkInsert('users', userData);
   },
 
   async down(queryInterface, Sequelize) {

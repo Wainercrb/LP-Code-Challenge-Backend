@@ -1,21 +1,13 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const seedData = [
-      { type: 'addition', cost: 500 },
-      { type: 'subtraction', cost: 550 },
-      { type: 'multiplication', cost: 200 },
-      { type: 'division', cost: 100 },
-      { type: 'square_root', cost: 250 },
-      { type: 'random_string', cost: 400 },
-    ];
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { operationData } = require('../seed-data/data.json');
 
-    await queryInterface.bulkInsert('operations', seedData);
+    await queryInterface.bulkInsert('operations', operationData);
   },
 
   async down(queryInterface, Sequelize) {
     await queryInterface.bulkDelete('operations', null, {});
   },
 };
-
-
-

@@ -1,57 +1,12 @@
 module.exports = {
   async up(queryInterface, Sequelize) {
-    const seedData = [
-      {
-        operation_id: 1,
-        user_id: 1,
-        amount: 100,
-        operation_response: JSON.stringify('{}'),
-        date: new Date(),
-        isDeleted: false,
-      },
-      {
-        operation_id: 2,
-        user_id: 2,
-        amount: 200,
-        operation_response: JSON.stringify('{}'),
-        date: new Date(),
-        isDeleted: false,
-      },
-      {
-        operation_id: 3,
-        user_id: 3,
-        amount: 300,
-        operation_response: JSON.stringify('{}'),
-        date: new Date(),
-        isDeleted: false,
-      },
-      {
-        operation_id: 1,
-        user_id: 1,
-        amount: 400,
-        operation_response: JSON.stringify('{}'),
-        date: new Date(),
-        isDeleted: false,
-      },
-      {
-        operation_id: 2,
-        user_id: 2,
-        amount: 500,
-        operation_response: JSON.stringify('{}'),
-        date: new Date(),
-        isDeleted: false,
-      },
-      {
-        operation_id: 3,
-        user_id: 3,
-        amount: 600,
-        operation_response: JSON.stringify('{}'),
-        date: new Date(),
-        isDeleted: false,
-      },
-    ];
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const { recordData } = require('../seed-data/data.json');
 
-    await queryInterface.bulkInsert('records', seedData);
+    const mappedSeed = recordData.map((item) => ({ ...item, date: new Date(item.date) }));
+
+    await queryInterface.bulkInsert('records', mappedSeed);
   },
 
   async down(queryInterface, Sequelize) {

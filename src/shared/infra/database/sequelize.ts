@@ -1,4 +1,4 @@
 import { Sequelize } from 'sequelize';
-import { development } from '@/shared/infra/database/config';
+import { config } from '@/shared/infra/config';
 
-export const sequelize = new Sequelize(development);
+export const sequelize = new Sequelize(config.sequelize);
