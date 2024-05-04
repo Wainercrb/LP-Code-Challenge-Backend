@@ -2,10 +2,10 @@ import Zod from 'zod';
 import { PaginationOrder, PaginationProps } from '@/shared/domain/pagination';
 
 const schema = Zod.object({
-  page: Zod.string()
+  page: Zod.string({ message: 'Pagination page required.' })
     .min(1)
     .transform((v) => Number(v)),
-  size: Zod.string()
+  size: Zod.string({ message: 'Pagination size required.' })
     .min(1)
     .transform((v) => Number(v)),
   criteria: Zod.string().optional(),

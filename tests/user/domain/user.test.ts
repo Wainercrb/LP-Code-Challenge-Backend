@@ -7,7 +7,7 @@ class TestUser extends User {
   }
 }
 
-describe('User', () => {
+describe('[user]', () => {
   it('should create a user instance with provided values', () => {
     const id = 1;
     const username = 'john_doe';
