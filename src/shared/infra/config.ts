@@ -18,6 +18,8 @@ export const config = {
     // port: Number(process.env.DB_PORT),
     // database: process.env.DB_NAME,
     // dialect: 'mysql',
+
+    logging: false,
     dialect: 'sqlite',
     storage: '.database/database.sqlite',
   } as Options,
