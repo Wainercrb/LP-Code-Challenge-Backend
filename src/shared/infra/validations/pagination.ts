@@ -9,10 +9,21 @@ const schema = Zod.object({
     .min(1)
     .transform((v) => Number(v)),
   criteria: Zod.string().optional(),
-  column: Zod.enum(['cost', 'type']).default('type'),
   direction: Zod.enum(PaginationOrder).default('ASC'),
 });
 
-export const validatePagination = (body: Record<string, unknown>): PaginationProps => {
-  return schema.parse(body);
-};
+function validatePagination(
+  mappedPaginationColumnList: [string, ...string[]],
+  mappedPaginationDefaultColumn: string,
+  body: Record<string, unknown>,
+): PaginationProps {
+  const columnSchema = Zod.object({
+    column: Zod.enum(mappedPaginationColumnList).default(mappedPaginationDefaultColumn as string),
+  });
+
+  const mergedSchema = schema.merge(columnSchema);
+
+  return mergedSchema.parse(body);
+}
+
+export { validatePagination };

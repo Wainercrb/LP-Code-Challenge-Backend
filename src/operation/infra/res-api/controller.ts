@@ -10,7 +10,7 @@ export class Controller {
   constructor(private readonly listOperation: ListOperation) {}
   async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const pagination = validatePagination(req.query);
+      const pagination = validatePagination(['cost', 'type'], 'type', req.query);
 
       const records = await this.listOperation.execute(pagination);
 

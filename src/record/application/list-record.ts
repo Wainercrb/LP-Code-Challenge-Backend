@@ -15,7 +15,6 @@ export class ListRecord {
 
     const records = await this.recordRepository.listRecord(userID, pagination);
 
-    logger.info(`[GetUserUseCase] - end`);
     logger.info(`[ListRecord] - Successfully listed records for user with ID: ${userID}`);
 
     return records;

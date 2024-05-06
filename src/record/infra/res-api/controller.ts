@@ -35,7 +35,7 @@ export class Controller {
 
   async list(req: MiddlewareRequest, res: Response, next: NextFunction) {
     try {
-      const pagination = validatePagination(req.query);
+      const pagination = validatePagination(['amount'], 'amount', req.query);
       const { userID } = validateLoggedUser(req.user as unknown as Record<string, unknown>);
 
       const operations = await this.listRecord.execute(userID, pagination);

@@ -127,8 +127,8 @@ describe('[operation-router]', () => {
 
     expect(status).toBe(400);
     expect(JSON.parse(body.error).map((item: ZodError) => item.message)).toStrictEqual([
-      "Invalid enum value. Expected 'cost' | 'type', received 'none'",
       "Invalid enum value. Expected 'ASC' | 'DESC', received 'none'",
+      "Invalid enum value. Expected 'cost' | 'type', received 'none'",
     ]);
   });
 });
