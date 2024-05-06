@@ -1,20 +1,10 @@
 import request from 'supertest';
-import express from 'express';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import { ZodError } from 'zod';
-import { userRouter } from '../../../../src/user/infra/res-api/routes';
 import { Role } from '../../../../src/user/domain/user-role';
 import { SequelizeUser } from '../../../../src/shared/infra/database/models/User';
-import { errorHandler } from '../../../../src/shared/infra/errors/handler';
+import { bootstrap } from '../../../../src/index'
 
-const app = express();
-
-app.use(cors());
-app.use(express.json());
-app.use(cookieParser());
-app.use('/user', userRouter);
-app.use(errorHandler);
+const app = bootstrap()
 
 describe('[user-router]', () => {
   afterEach(() => {

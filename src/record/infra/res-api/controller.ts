@@ -4,6 +4,7 @@ import { NextFunction, Response } from 'express';
 import { MiddlewareRequest } from '@/shared/domain/middleware-request';
 import { validateLoggedUser } from '@/shared/infra/validations/logged-user';
 import { validatePagination } from '@/shared/infra/validations/pagination';
+import { config } from '@/shared/infra/config';
 
 // Use Cases
 import { ListRecord } from '@/record/application/list-record';
@@ -27,7 +28,7 @@ export class Controller {
 
       const record = await this.createRecord.execute(userID, operation_id, valueA, valueB);
 
-      res.status(200).json(record);
+      res.status(config.server.httpStatusCode.Ok).json(record);
     } catch (error) {
       next(error);
     }
@@ -40,7 +41,7 @@ export class Controller {
 
       const operations = await this.listRecord.execute(userID, pagination);
 
-      res.status(200).json(operations);
+      res.status(config.server.httpStatusCode.Ok).json(operations);
     } catch (error) {
       next(error);
     }
@@ -52,7 +53,7 @@ export class Controller {
 
       const record = await this.deleteRecord.execute(id);
 
-      res.status(200).json(record);
+      res.status(config.server.httpStatusCode.Ok).json(record);
     } catch (error) {
       next(error);
     }

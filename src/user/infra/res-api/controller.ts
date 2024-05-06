@@ -36,7 +36,7 @@ export class Controller {
         sameSite: 'none',
       });
 
-      res.status(200).json(user);
+      res.status(config.server.httpStatusCode.Ok).json(user);
     } catch (error) {
       next(error);
     }
@@ -54,7 +54,7 @@ export class Controller {
         sameSite: 'none',
       });
 
-      res.status(201).json(user);
+      res.status(config.server.httpStatusCode.Created).json(user);
     } catch (error) {
       next(error);
     }
@@ -69,7 +69,7 @@ export class Controller {
         expires: new Date(0),
       });
 
-      res.sendStatus(200);
+      res.sendStatus(config.server.httpStatusCode.Ok);
     } catch (error) {
       next(error);
     }
@@ -81,7 +81,7 @@ export class Controller {
 
       const user = await this.getUser.execute(userID);
 
-      res.status(200).json(user);
+      res.status(config.server.httpStatusCode.Ok).json(user);
     } catch (error) {
       next(error);
     }
@@ -89,13 +89,16 @@ export class Controller {
 
   async verify(req: MiddlewareRequest, res: Response, next: NextFunction) {
     try {
-      if (!req.cookies) return res.status(401).json({ message: 'No cookies found, authorization denied' });
+      if (!req.cookies)
+        return res
+          .status(config.server.httpStatusCode.Unauthorized)
+          .json({ message: 'No cookies found, authorization denied' });
 
       const { token } = req.cookies;
 
       const user = await this.verifyUser.execute(token);
 
-      res.status(200).send(user);
+      res.status(config.server.httpStatusCode.Ok).send(user);
     } catch (error) {
       next(error);
     }

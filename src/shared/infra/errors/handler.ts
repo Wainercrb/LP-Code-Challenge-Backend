@@ -1,7 +1,7 @@
 import { NextFunction, Request, Response } from 'express';
-import { logger } from '@/shared/infra/logger/logger';
 import { ZodError } from 'zod';
-import { JsonWebTokenError } from 'jsonwebtoken';
+import { logger } from '@/shared/infra/logger/logger';
+import { config } from '@/shared/infra/config';
 
 export class Error401 extends Error {
   constructor(message = 'Invalid credentials.') {
@@ -32,25 +32,22 @@ export class Error404 extends Error {
 }
 
 export const errorHandler = (err: unknown, _req: Request, res: Response, _next: NextFunction) => {
-  if (err instanceof JsonWebTokenError) {
-    return res.status(500).json({ error: err.message });
-  } else if (err instanceof ZodError) {
-    return res.status(400).json({ error: err.message });
-  } else if (err instanceof Error401) {
-    logger.error(err.message);
-    res.status(401).json({ error: err.message });
-  } else if (err instanceof Error500) {
-    logger.error(err.message);
-    res.status(500).json({ error: err.message });
-  } else if (err instanceof Error400) {
-    logger.error(err.message);
-    res.status(400).json({ error: err.message });
-  } else if (err instanceof Error404) {
-    logger.error(err.message);
-    res.status(404).json({ error: err.message });
-  } else {
-    logger.error(err);
-    console.error('Unhandled error:', err);
-    res.status(500).json({ error: 'Internal Server Error' });
+  if (err instanceof ZodError) {
+    return res.status(config.server.httpStatusCode.BadRequest).json({ error: err.message });
   }
+
+  if (err instanceof Error401) {
+    return res.status(config.server.httpStatusCode.Unauthorized).json({ error: err.message });
+  }
+
+  if (err instanceof Error400) {
+    return res.status(config.server.httpStatusCode.BadRequest).json({ error: err.message });
+  }
+
+  if (err instanceof Error404) {
+    return res.status(config.server.httpStatusCode.NotFound).json({ error: err.message });
+  }
+
+  logger.error(err);
+  return res.status(config.server.httpStatusCode.InternalServerError).json({ error: 'Internal Server Error' });
 };

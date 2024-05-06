@@ -1,5 +1,8 @@
 import { NextFunction, Request, Response } from 'express';
 
+// Shared
+import { config } from '@/shared/infra/config';
+
 // Validations
 import { validatePagination } from '@/shared/infra/validations/pagination';
 
@@ -14,7 +17,7 @@ export class Controller {
 
       const records = await this.listOperation.execute(pagination);
 
-      res.status(200).json(records);
+      res.status(config.server.httpStatusCode.Ok).json(records);
     } catch (error) {
       next(error);
     }

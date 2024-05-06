@@ -1,4 +1,5 @@
 import path from 'path';
+import { config } from 'dotenv'
 
 describe('[dotenv-config]', () => {
   const mockedFunction = jest.fn();
