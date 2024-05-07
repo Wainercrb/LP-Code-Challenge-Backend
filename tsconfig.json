@@ -1,12 +1,11 @@
 {
   "extends": "@tsconfig/node20/tsconfig.json",
   "compilerOptions": {
+    "resolveJsonModule": true,
     "baseUrl": "src",
     "outDir": "./dist",
     "paths": { 
-      "@application/*":["application/*"],
-      "@domain/*":["domain/*"],
-      "@infrastructure/*":["infrastructure/*"],
+      "@/*":["*"],
     }
   },
   "include": ["src", "test/application/factories/CreateUserControllerFactory.test.ts"],

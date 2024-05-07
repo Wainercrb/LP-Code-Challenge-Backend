@@ -1,0 +1,93 @@
+{
+  "userData": [
+    {
+      "username": "admin",
+      "password": "$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K",
+      "role": "admin",
+      "balance": 10000
+    },
+    {
+      "username": "juan",
+      "password": "$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K",
+      "role": "guess",
+      "balance": 7000
+    },
+    {
+      "username": "luis",
+      "password": "$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K",
+      "role": "guess",
+      "balance": 7600
+    },
+    {
+      "username": "carlos",
+      "password": "$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K",
+      "role": "guess",
+      "balance": 7100
+    },
+    {
+      "username": "lucas",
+      "password": "$2a$10$U0njzGrKQIdtgbbsaXtQZeb4UlzCzL88lm1J653xm81.7UvdwDT4K",
+      "role": "guess",
+      "balance": 7800
+    }
+  ],
+  "operationData": [
+    { "type": "addition", "cost": 500 },
+    { "type": "subtraction", "cost": 550 },
+    { "type": "multiplication", "cost": 200 },
+    { "type": "division", "cost": 100 },
+    { "type": "square_root", "cost": 250 },
+    { "type": "random_string", "cost": 400 }
+  ],
+
+  "recordData": [
+    {
+      "operation_id": 1,
+      "user_id": 1,
+      "amount": 100,
+      "operation_response": "{}",
+      "date": "Thu May 02 2024 22:47:49 GMT-0600 (Central Standard Time)",
+      "isDeleted": false
+    },
+    {
+      "operation_id": 2,
+      "user_id": 2,
+      "amount": 200,
+      "operation_response": "{}",
+      "date": "Thu May 02 2024 22:47:49 GMT-0600 (Central Standard Time)",
+      "isDeleted": false
+    },
+    {
+      "operation_id": 3,
+      "user_id": 3,
+      "amount": 300,
+      "operation_response": "{}",
+      "date": "Thu May 02 2024 22:47:49 GMT-0600 (Central Standard Time)",
+      "isDeleted": false
+    },
+    {
+      "operation_id": 1,
+      "user_id": 1,
+      "amount": 400,
+      "operation_response": "{}",
+      "date": "Thu May 02 2024 22:47:49 GMT-0600 (Central Standard Time)",
+      "isDeleted": false
+    },
+    {
+      "operation_id": 2,
+      "user_id": 2,
+      "amount": 500,
+      "operation_response": "{}",
+      "date": "Thu May 02 2024 22:47:49 GMT-0600 (Central Standard Time)",
+      "isDeleted": false
+    },
+    {
+      "operation_id": 3,
+      "user_id": 3,
+      "amount": 600,
+      "operation_response": "{}",
+      "date": "Thu May 02 2024 22:47:49 GMT-0600 (Central Standard Time)",
+      "isDeleted": false
+    }
+  ]
+}

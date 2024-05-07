@@ -3,12 +3,12 @@ module.exports = {
   preset: 'ts-jest',
   testEnvironment: 'node',
   moduleNameMapper: {
-    '^@application/(.*)$': '<rootDir>/src/application/$1',
-    '^@domain/(.*)$': '<rootDir>/src/domain/$1',
-    '^@infrastructure/(.*)$': '<rootDir>/src/infrastructure/$1',
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
-  coveragePathIgnorePatterns: [
-    "<rootDir>/src/domain/entities/" ,
-    "<rootDir>/src/infrastructure/database"
-  ]
+  // paths config
+  collectCoverageFrom: ['src/**/*.{ts,tsx}'],
+  coveragePathIgnorePatterns: ['<rootDir>/src/domain/entities/', '<rootDir>/src/infrastructure/database'],
+
+  // setup test
+  setupFilesAfterEnv: ['<rootDir>/tests/shared/infra/setup-tests.ts'],
 };
