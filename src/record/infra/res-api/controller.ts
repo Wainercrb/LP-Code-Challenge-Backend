@@ -28,7 +28,7 @@ export class Controller {
 
       const record = await this.createRecord.execute(userID, operation_id, valueA, valueB);
 
-      res.status(config.server.httpStatusCode.Ok).json(record);
+      res.status(config.server.httpStatusCode.Created).json(record);
     } catch (error) {
       next(error);
     }
@@ -49,7 +49,7 @@ export class Controller {
 
   async delete(req: MiddlewareRequest, res: Response, next: NextFunction) {
     try {
-      const id = validateDeleteRecord(req.params);
+      const id = validateDeleteRecord(req.query);
 
       const record = await this.deleteRecord.execute(id);
 
